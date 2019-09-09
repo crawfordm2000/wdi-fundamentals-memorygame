@@ -29,9 +29,11 @@ var cards = [
 ];
 var cardsInPlay = [];
 
+
+
 //This function will validate if the player has chosen two cards and if they are matching queens.
 
-function checkForMatch() {
+var checkForMatch = function () {
     if (cardsInPlay.length === 2) {
         if (cardsInPlay[0] === cardsInPlay[1]) {
             alert("You found a match!");
@@ -44,16 +46,24 @@ function checkForMatch() {
 
 //flipCard will take the player choices, which are indexed from 'cards' and push them to the 'cardsInPlay' array.
 //flipCard will then call the checkForMatch function. 
-function flipCard (cardId) {
+var flipCard = function () {
+    var cardId = this.getAttribute('data-id');
     cardsInPlay.push(cards[cardId].rank);
-    console.log("User flipped " + cards[cardId].rank);
-    console.log(cards[cardId].cardImage);
-    console.log(cards[cardId].suit);
+    this.setAttribute('src', cards[cardId].cardImage);
     checkForMatch();
     
 };
 
-flipCard(0);
-flipCard(2);
+var createBoard = function () {
+  for (let i = 0; i < cards.length; i++) {
+    var cardElement = document.createElement('img');
+    cardElement.setAttribute('src', "images/back.png" );
+    cardElement.setAttribute('data-id', i);
+    cardElement.addEventListener('click', flipCard);
+    document.getElementById('game-board').appendChild(cardElement);
+  }
+};
+
+createBoard();
 
 
