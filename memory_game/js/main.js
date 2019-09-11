@@ -27,33 +27,29 @@ var cards = [
     cardImage: "images/king-of-diamonds.png"
   }
 ];
+
 var cardsInPlay = [];
-
-
-
 //This function will validate if the player has chosen two cards and if they are matching queens.
-
 var checkForMatch = function () {
     if (cardsInPlay.length === 2) {
-        if (cardsInPlay[0] === cardsInPlay[1]) {
+        if (cardsInPlay[0] === cardsInPlay[1] || cardsInPlay[2] === cardsInPlay[3]) {
             alert("You found a match!");
           } else {
             alert("Sorry, try again.");
           }
-    }
-    
+    } 
 }
-
 //flipCard will take the player choices, which are indexed from 'cards' and push them to the 'cardsInPlay' array.
 //flipCard will then call the checkForMatch function. 
 var flipCard = function () {
     var cardId = this.getAttribute('data-id');
     cardsInPlay.push(cards[cardId].rank);
     this.setAttribute('src', cards[cardId].cardImage);
-    checkForMatch();
-    
+    checkForMatch(); 
 };
 
+//This function will create the game board, an img element for all four cards, then set the 
+// src for each image. 
 var createBoard = function () {
   for (let i = 0; i < cards.length; i++) {
     var cardElement = document.createElement('img');
